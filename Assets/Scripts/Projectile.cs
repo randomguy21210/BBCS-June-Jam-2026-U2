@@ -15,10 +15,11 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        transform.Rotate(0,0,rotationOffset);
     }
     void FixedUpdate()
     {
-        Vector2 dir = new Vector2(Mathf.Cos((rotationOffset+rb.rotation)*Mathf.Deg2Rad),Mathf.Sin((rotationOffset+rb.rotation)*Mathf.Deg2Rad));
+        Vector2 dir = new Vector2(Mathf.Cos((rb.rotation+rotationOffset)*Mathf.Deg2Rad),Mathf.Sin((rb.rotation+rotationOffset)*Mathf.Deg2Rad));
         rb.MovePosition(rb.position+speed * Time.fixedDeltaTime * dir);
     }
     void Update()

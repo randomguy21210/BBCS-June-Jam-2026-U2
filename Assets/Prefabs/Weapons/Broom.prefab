@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3116420249668271439}
   - component: {fileID: 1562078305564810465}
   - component: {fileID: 332152684618742530}
+  - component: {fileID: 2034548249409026336}
   m_Layer: 0
   m_Name: Broom
   m_TagString: Untagged
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7901622571200134146, guid: 181de91e4a1065440bfad0b9e5ce082f, type: 3}
+  m_Sprite: {fileID: -2970708115964570557, guid: c5ca9112cb6739b4fb81f2f9d2b84f7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad8744ac49abc445bae39ba4875f6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeWeapon
-  attackRange: 0.5
+  attackRange: 1
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -112,3 +113,26 @@ MonoBehaviour:
   cooldown: 0.5
   rotationOffset: -45
   isPlayerWeapon: 1
+  animationName: 
+--- !u!95 &2034548249409026336
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6903247834425463060}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8b193ac107327f48bb1243d5134999a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

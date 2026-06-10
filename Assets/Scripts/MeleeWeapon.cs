@@ -10,11 +10,14 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
     public float cooldown = 0.5f;
     public float rotationOffset = 0;
     public bool isPlayerWeapon = false;
+    public string animationName;
+    private Animator anim;
     float timer = 0f;
     private Camera mainCamera;
     void Start()
     {
         mainCamera = Camera.main;
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -48,6 +51,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
     private void Swing()
     {
         if (timer < cooldown) return;
+        anim.Play(animationName, 0, 0f);
         timer = 0;
         if (isPlayerWeapon)
         {
@@ -73,5 +77,9 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
     public bool canSwing()
     {
         return timer >= cooldown;
+    }
+    public float getAttackRange()
+    {
+        return attackRange;
     }
 }

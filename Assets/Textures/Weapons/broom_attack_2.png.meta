@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cd52e4415b0b7d1438e336378c424864
+guid: 56b737d12b5c9184caf74f94c8e7a255
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8694855868168210764
-    second: enemy_basic 1_0
+      213: -1366951878055932204
+    second: broom_attack_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemy_basic 1_0
+      name: broom_attack_2_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 6
-        width: 20
-        height: 23
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4b6fc9cb7aaa55780800000000000000
-      internalID: -8694855868168210764
+      spriteID: 4de4c63628c970de0800000000000000
+      internalID: -1366951878055932204
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4d46f56cdde5ba94b80014c07ab7be62
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      enemy_basic 1_0: -8694855868168210764
+      broom_attack_2_0: -1366951878055932204
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

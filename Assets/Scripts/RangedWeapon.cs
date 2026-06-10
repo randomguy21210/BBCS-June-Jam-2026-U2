@@ -59,4 +59,8 @@ public class RangedWeapon : MonoBehaviour, IWeapon
     {
         return timer >= cooldown;
     }
+    public float getAttackRange()
+    {
+        return float.MaxValue;
+    }
 }
