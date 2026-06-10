@@ -8,29 +8,53 @@ public class Projectile : MonoBehaviour
     public int pierce = 3;
     public float time = 1f;
     public float rotationOffset = 0f;
+    public bool isPlayerProjectile = false;
     float timer = 0f;
+    public GameObject nextProjectile;
+    private Rigidbody2D rb;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+    void FixedUpdate()
+    {
+        Vector2 dir = new Vector2(Mathf.Cos((rotationOffset+rb.rotation)*Mathf.Deg2Rad),Mathf.Sin((rotationOffset+rb.rotation)*Mathf.Deg2Rad));
+        rb.MovePosition(rb.position+speed * Time.fixedDeltaTime * dir);
+    }
     void Update()
     {
-        if (timer + Time.deltaTime < time)
+        if (timer + Time.deltaTime >= time)
         {
-            transform.Rotate(new Vector3(0,0,rotationOffset));
-            transform.Translate(speed * Vector2.up * Time.deltaTime);
-            transform.Rotate(new Vector3(0,0,-rotationOffset));
-        }
-        else
-        {
-            transform.Rotate(new Vector3(0,0,rotationOffset));
-            transform.Translate(speed * Vector2.up * (time-timer));
-            transform.Rotate(new Vector3(0,0,-rotationOffset));
-            Destroy(gameObject, Time.deltaTime);
+            Die();
         }
         timer += Time.deltaTime;
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        pierce--;
+        if (other.CompareTag("Enemy") && isPlayerProjectile)
+        {
+            pierce--;
+            IEnemy enemy = other.GetComponent<IEnemy>();
+            enemy.dealDamage(damage);
 
-
-        if (pierce == 0) Destroy(gameObject);
+        }
+        else if (other.CompareTag("Player") && !isPlayerProjectile)
+        {
+            pierce--;
+            PlayerController player = other.GetComponent<PlayerController>();
+            player.dealDamage(damage);
+        }
+        else if (other.CompareTag("Walls"))
+        {
+            Die();
+        }
+        if (pierce == 0) Die();
+    }
+    void Die()
+    {
+        transform.Rotate(new Vector3(0,0,rotationOffset));
+        if (nextProjectile != null) Instantiate(nextProjectile, transform.position, transform.rotation);
+        transform.Rotate(new Vector3(0,0,-rotationOffset));
+        Destroy(gameObject);
     }
 }

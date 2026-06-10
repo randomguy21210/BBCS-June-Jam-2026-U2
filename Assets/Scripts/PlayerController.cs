@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour
     public Tilemap tilemap;
     private int [,] visited = new int[Navigation.mapx,Navigation.mapy];
     private int health;
-    public void DecreaseHealth(int amt){health -= amt;}
     private GameObject[] Weapons = new GameObject[3];
     private IWeapon[] IWeapons = new IWeapon[3];
-    [SerializeField] private GameObject Weapon1;
+    public IWeapon activeWeapon;
+    public GameObject[] weaponPrefabs = new GameObject[1];
 
     [SerializeField] private InputAction AttackAction;
     private void OnEnable()
@@ -32,26 +32,27 @@ public class PlayerController : MonoBehaviour
     }
     private void OnAttackPressed(InputAction.CallbackContext context)
     {
-        Debug.Log("Atk");
         IWeapons[0].Attack();
     }
 
     void Start()
     {
-        Weapons[0] = Instantiate(Weapon1, gameObject.GetComponent<Transform>());
+        Weapons[0] = Instantiate(weaponPrefabs[0], gameObject.GetComponent<Transform>());
         IWeapons[0] = Weapons[0].GetComponent<IWeapon>();
+        activeWeapon = GetComponentInChildren<IWeapon>();
         Navigation.player = this;
         moveAction = InputSystem.actions.FindAction("Move");
         BoundsInt bounds = tilemap.cellBounds;
-        Vector3Int bottomLeft = new Vector3Int(bounds.xMin, bounds.yMin, 0);
         foreach(Vector3Int cellPosition in bounds.allPositionsWithin)
         {
             if (tilemap.HasTile(cellPosition))
             {
-                int rX = cellPosition.x - bottomLeft.x;
-                int rY = cellPosition.y - bottomLeft.y;
-                visited[2*rX,2*rY] = 1;
-                visited[2*rX+1,2*rY+1] = 1;
+                int rX = cellPosition.x*2;
+                int rY = cellPosition.y*2;
+                visited[rX,rY]=1;
+                visited[rX+1,rY]=1;
+                visited[rX,rY+1]=1;
+                visited[rX+1,rY+1]=1;
             }
         }
     }
@@ -82,15 +83,18 @@ public class PlayerController : MonoBehaviour
                     int b = Navigation.diri[i].y;
                     if (!(t.x + a >= 0 && t.x + a <= Navigation.mapx-1 && t.y + b >= 0 && t.y + b <= Navigation.mapy-1)) continue;
                     if (cloneVisited[t.x+a,t.y+b] == 1) continue;
-                    {
-                        cloneVisited[t.x+a,t.y+b] = 1;
-                        directions[t.x+a,t.y+b] = i+1;
-                        queue.Enqueue(new Vector2Int(t.x+a,t.y+b));
-                    }
+                    cloneVisited[t.x+a,t.y+b] = 1;
+                    directions[t.x+a,t.y+b] = i+1;
+                    queue.Enqueue(new Vector2Int(t.x+a,t.y+b));
                 }
 
             }
             Navigation.directions = directions;
         }
+    }
+    public void dealDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) return; //Scenemanager.loadscene scene
     }
 }
