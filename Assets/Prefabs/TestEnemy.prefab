@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2845493037807819801}
   - component: {fileID: 531024097054630237}
   - component: {fileID: 2191018849848432329}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 153942783197473689}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.23727, y: -0.62814, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,9 @@ MonoBehaviour:
   moveSpeed: 3.8
   obstacleLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  health: 5
+  weaponPrefab: {fileID: 3862521505203765353, guid: cf896f2eb6fb99448925b8db6142dd2d, type: 3}
 --- !u!50 &531024097054630237
 Rigidbody2D:
   serializedVersion: 5
@@ -172,5 +174,5 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_Direction: 0

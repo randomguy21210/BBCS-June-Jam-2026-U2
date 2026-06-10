@@ -1,16 +1,14 @@
 
-using System;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
-public class RangedWeapon : MonoBehaviour, IWeapon
+public class MeleeWeapon : MonoBehaviour, IWeapon
 {
-    [SerializeField] private GameObject projectile;
-    public float rotationOffset = 0;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
+    public int attackDamage = 20;
     public float cooldown = 0.5f;
+    public float rotationOffset = 0;
     public bool isPlayerWeapon = false;
     float timer = 0f;
     private Camera mainCamera;
@@ -45,15 +43,32 @@ public class RangedWeapon : MonoBehaviour, IWeapon
     }
     public void Attack()
     {
-        Shoot();
+        Swing();
     }
-    public void Shoot()
+    private void Swing()
     {
         if (timer < cooldown) return;
         timer = 0;
-        Projectile p = Instantiate(projectile, transform.position, transform.rotation).GetComponent<Projectile>();
-        p.isPlayerProjectile = isPlayerWeapon;
-
+        if (isPlayerWeapon)
+        {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange);
+            foreach(Collider2D enemyCollider in hitEnemies)
+            {
+                IEnemy enemy = enemyCollider.GetComponent<IEnemy>();
+                if (enemy == null) continue;
+                enemy.dealDamage(attackDamage);
+            }
+        } 
+        else
+        {
+            Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, attackRange);
+            foreach(Collider2D playerCollider in hitPlayer)
+            {
+                PlayerController player = playerCollider.GetComponent<PlayerController>();
+                if (player == null) continue;
+                player.dealDamage(attackDamage);
+            }
+        }
     }
     public bool canSwing()
     {
