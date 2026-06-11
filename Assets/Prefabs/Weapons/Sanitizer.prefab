@@ -107,4 +107,4 @@ MonoBehaviour:
   projectile: {fileID: 8799732048933544778, guid: 96483ad6f2c519f49a20b98eada0f0fa, type: 3}
   rotationOffset: 180
   cooldown: 0.5
-  isPlayerWeapon: 0
+  isPlayerWeapon: 1

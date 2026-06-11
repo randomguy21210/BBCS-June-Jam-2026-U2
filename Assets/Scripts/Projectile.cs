@@ -11,16 +11,16 @@ public class Projectile : MonoBehaviour
     public bool isPlayerProjectile = false;
     float timer = 0f;
     public GameObject nextProjectile;
-    private Rigidbody2D rb;
-    void Start()
+    public Rigidbody2D rb;
+    public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         transform.Rotate(0,0,rotationOffset);
     }
     void FixedUpdate()
     {
-        Vector2 dir = new Vector2(Mathf.Cos((rb.rotation+rotationOffset)*Mathf.Deg2Rad),Mathf.Sin((rb.rotation+rotationOffset)*Mathf.Deg2Rad));
-        rb.MovePosition(rb.position+speed * Time.fixedDeltaTime * dir);
+        float angle = Mathf.Deg2Rad * (transform.eulerAngles.z - rotationOffset);
+        rb.MovePosition((Vector2)rb.position + speed * Time.fixedDeltaTime * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)));
     }
     void Update()
     {
@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
         }
         timer += Time.deltaTime;
     }
-    void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy") && isPlayerProjectile)
         {
@@ -51,11 +51,11 @@ public class Projectile : MonoBehaviour
         }
         if (pierce == 0) Die();
     }
-    void Die()
+    public void Die()
     {
-        transform.Rotate(new Vector3(0,0,rotationOffset));
-        if (nextProjectile != null) Instantiate(nextProjectile, transform.position, transform.rotation);
         transform.Rotate(new Vector3(0,0,-rotationOffset));
+        if (nextProjectile != null) Instantiate(nextProjectile, transform.position, transform.rotation);
+        transform.Rotate(new Vector3(0,0,rotationOffset));
         Destroy(gameObject);
     }
 }

@@ -110,8 +110,8 @@ MonoBehaviour:
   speed: 5
   pierce: 3
   time: 5
-  rotationOffset: -90
-  isPlayerProjectile: 0
+  rotationOffset: 90
+  isPlayerProjectile: 1
   nextProjectile: {fileID: 0}
 --- !u!50 &5942726138747900454
 Rigidbody2D:

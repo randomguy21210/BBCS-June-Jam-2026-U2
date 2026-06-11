@@ -51,7 +51,7 @@ public class RangedWeapon : MonoBehaviour, IWeapon
     {
         if (timer < cooldown) return;
         timer = 0;
-        Projectile p = Instantiate(projectile, transform.position, transform.rotation).GetComponent<Projectile>();
+        Projectile p = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,transform.rotation.eulerAngles.z-rotationOffset)).GetComponent<Projectile>();
         p.isPlayerProjectile = isPlayerWeapon;
 
     }
